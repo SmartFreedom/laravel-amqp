@@ -1,6 +1,6 @@
 {
-  "name": "cmai/laravel-amqp",
-  "description": "AMQP wrapper for Laravel and Lumen to publish and consume messages, forked from https://github.com/bschmitt/laravel-amqp",
+  "name": "bschmitt/laravel-amqp",
+  "description": "AMQP wrapper for Laravel and Lumen to publish and consume messages",
   "keywords": [
     "laravel",
     "lumen",

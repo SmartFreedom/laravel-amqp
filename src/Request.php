@@ -75,27 +75,29 @@ class Request extends Context
 
         $exchange = $this->getProperty('exchange');
 
-        if (empty($exchange)) {
-            throw new Exception\Configuration('Please check your settings, exchange is not defined.');
+        if (!empty($exchange)) {
+            /*
+                name: $exchange
+                type: topic
+                passive: false
+                durable: true // the exchange will survive server restarts
+                auto_delete: false //the exchange won't be deleted once the channel is closed.
+            */
+            $this->channel->exchange_declare(
+                $exchange,
+                $this->getProperty('exchange_type'),
+                $this->getProperty('exchange_passive'),
+                $this->getProperty('exchange_durable'),
+                $this->getProperty('exchange_auto_delete'),
+                $this->getProperty('exchange_internal'),
+                $this->getProperty('exchange_nowait'),
+                $this->getProperty('exchange_properties')
+            );
+
+            // throw new Exception\Configuration('Please check your settings, exchange is not defined.');
         }
 
-        /*
-            name: $exchange
-            type: topic
-            passive: false
-            durable: true // the exchange will survive server restarts
-            auto_delete: false //the exchange won't be deleted once the channel is closed.
-        */
-        $this->channel->exchange_declare(
-            $exchange,
-            $this->getProperty('exchange_type'),
-            $this->getProperty('exchange_passive'),
-            $this->getProperty('exchange_durable'),
-            $this->getProperty('exchange_auto_delete'),
-            $this->getProperty('exchange_internal'),
-            $this->getProperty('exchange_nowait'),
-            $this->getProperty('exchange_properties')
-        );
+
 
         $queue = $this->getProperty('queue');
 
